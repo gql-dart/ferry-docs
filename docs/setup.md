@@ -3,11 +3,25 @@ id: setup
 title: Setup
 ---
 
-## Installation
+## Basic Setup
 
-Add `ferry` and `gql_http_link` to your pubspec dependencies. You will also need to add `ferry_generator` to your dev dependencies.
+### Install Dependencies
 
-## Simple Setup
+Add the following to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  ferry:  #[latest-version]
+  gql_http_link:  #[latest-version]
+
+dev_dependencies:
+  ferry_generator:  #[latest-version]
+  build_runner:  #[latest-version]
+```
+
+### Initialize the Client
+
+This instantiates a client with the default configuration, including a `Cache` instance that uses a `MemoryStore` to store data.
 
 ```dart
 import 'package:gql_http_link/gql_http_link.dart';
@@ -18,11 +32,38 @@ final link = HttpLink("[path/to/endpoint]");
 final client = Client(link: link);
 ```
 
-This instantiates a client with the default configuration, including a `Cache` instance that uses a `MemoryStore` to store data.
+## Setup With HiveStore
 
-## With HiveStore (persisted offline data)
+Ferry includes a `HiveStore` which enables offline data persistance, based on the `hive` package.
 
-Add `hive` (and `hive_flutter` if you're using flutter) to your pubspec.
+### Install Dependencies
+
+To use the `HiveStore`, you'll need to add these dependencies to your `pubspect.yaml`:
+
+```yaml
+dependencies:
+  ferry:  #[latest-version]
+  gql_http_link:  #[latest-version]
+  hive:  #[latest-version]
+  ferry_hive_store:  #[latest-version]
+
+dev_dependencies:
+  ferry_generator:  #[latest-version]
+  build_runner:  #[latest-version]
+```
+
+:::important
+
+If you're using Flutter, you'll also need to add:
+
+```yaml
+dependencies:
+  hive_flutter: #[latest-version]
+```
+
+:::
+
+### Initialize the Client
 
 ```dart
 import 'package:gql_http_link/gql_http_link.dart';
@@ -54,37 +95,6 @@ Future<Client> initClient() async {
 }
 ```
 
-## With UpdateCacheHandlers
+## ClientOptions
 
-The Client allows arbitrary cache updates following mutations, similar to functionality provided by Apollo Client's mutation `update` function. However, in order for mutations to work offline (still a WIP), the client must be aware of all `UpdateCacheHandlers`.
-
-```dart
-typedef UpdateCacheHandler<TData, TVars> = void Function(
-  CacheProxy proxy,
-  OperationResponse<TData, TVars> response,
-);
-```
-
-`CacheProxy` provides methods to `readQuery`, `readFragment`, `writeQuery`, and `writeFragment`.
-
-```dart
-import 'package:gql_http_link/gql_http_link.dart';
-import 'package:ferry/ferry.dart';
-
-import '[path/to/MyUpdateCacheHandler]';
-
-final link = HttpLink("https://graphql-pokemon.now.sh/graphql");
-
-final updateCacheHandlers = <dynamic, Function>{
-  "MyHandlerKey": MyUpdateCacheHandler,
-};
-
-final options = ClientOptions(updateCacheHandlers: updateCacheHandlers);
-
-final client = Client(
-  link: link,
-  options: options,
-);
-```
-
-This handler can then be called using its key `"MyHandlerKey"` from a `OperationRequest`.
+In addition to `cache` and `link` options, you can initialize the client with an optional `options` object. To learn more, see the [API docs](https://pub.dev/documentation/ferry/latest/ferry/ClientOptions-class.html) for `ClientOptions`.

@@ -1,6 +1,6 @@
 ---
-id: operations
-title: Queries & Mutations
+id: fetching-data
+title: Fetching Data
 ---
 
 ## Queries

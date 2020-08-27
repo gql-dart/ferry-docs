@@ -1,14 +1,43 @@
 ---
 id: codegen
-title: Generate GraphQL Data Classes
-sidebar_label: Code Generation
+title: Generate GraphQL Classes
+sidebar_label: Generate Classes
 ---
 
-The ferry `Client` is fully typed, so we must use the `gql_build` package to generate dart representations of our GraphQL operations, variables, and data. We will also use the `req_builder` included in the `ferry_generator` package to build typed `OperationRequest`s for each GraphQL operation.
+Ferry generates immutable data classes for all of your GraphQL Operations and Fragments. This saves time, improves the developer experience, and eliminates potential runtime errors.
 
-### Download GraphQL Schema
+## How it works
 
-First, we need to downoad our GraphQL in SDL format to any location within the `lib` project directory. You can use the [get-graphql-schema](https://github.com/prisma-labs/get-graphql-schema) tool to download a schema from a GraphQL endpoint:
+Let's say I've created an `all_pokemon.graphql` file with the following query:
+
+```graphql
+query AllPokemon($first: Int!) {
+  pokemons(first: $first) {
+    id
+    name
+    maxHP
+    image
+  }
+}
+```
+
+When I run the generator, Ferry will create the following classes:
+
+1. `GAllPokemonReq`: This class extends `OperationRequest` and includes the GraphQL document and variables for this query. It also includes other necessary settings to adjust how this operation is executed (e.g. `FetchPolicy`).
+2. `GAllPokemonVars`: This class includes any variables used in the query (just "first", in this case)
+3. `GAllPokemonData`:  This class represents the data returned by the query, including the "pokemons" field and all child fields.
+
+In addition, Ferry will generate any necessary supporting classes from your GraphQL schema, including `input` types, `enum`s, and custom `scalars`.
+
+:::note
+
+As you can see, Ferry prepends `"G"` to all class names. This is due to a limitation in the `built_value` package on which `ferry_generator` is based.
+
+:::
+
+## Download Your GraphQL Schema
+
+To generate our classes, we first need to downoad our GraphQL in SDL format to any location within the `lib` project directory. You can use the [get-graphql-schema](https://github.com/prisma-labs/get-graphql-schema) tool to download a schema from a GraphQL endpoint:
 
 First, install the tool:
 
@@ -22,28 +51,44 @@ Next, download the schema:
 get-graphql-schema ENDPOINT_URL > lib/schema.graphql
 ```
 
-### Add Queries to `.graphql` files
+## Create `.graphql` Files
 
-`gql_build` will generate dart code for all files located in the `lib` folder that end in a `.graphql` extention.
+As shown in the example above, we need to save all of our GraphQL operations to files that end with the `.graphql` extension.
 
-For example, we might have the following in `all_pokemon.graphql`:
+The generated files are created as siblings to the `.graphql` file. To reduce clutter, we recommend placing your `.graphql` files in a `/graphql` subdirectory. For example, if I have an `AllPokemon` widget that will use my `AllPokemon` query, I might use the following directory structure:
 
-```graphql
-query AllPokemon($first: Int!) {
-  pokemons(first: $first) {
-    id
-    name
-    maxHP
-    image
-  }
-}
+```
+lib/
+  src/
+    components/
+      graphql/
+        ### Generated files will go here
+        all_pokemon.graphql
+      all_pokemon.dart
 ```
 
-### Build Generated Queries
+:::caution
 
-Add `gql_build` and `build_runner` to your `dev_dependencies` in your pubspec file.
+Make sure that all `.graphql` files are located in the `lib` directory (or a subdirectory). The generator cannot read files located outside of `lib`. 
 
-Next add a `build.yaml` file to your project root:
+:::
+
+See the [examples](https://github.com/gql-dart/ferry/tree/master/examples) for more detail.
+
+### Importing from other `.graphql` files
+
+If your operations have dependencies in other `.graphql` files, you can import them by adding a *comment import* statement at the top of your `.graphql` file.
+
+```graphql
+# import './pokemon_card_fragment.graphql'
+```
+
+
+## Build Generated Queries
+
+Now that we've downloaded our GraphQL schema and written our GraphQL Operations, we're almost ready to run the generator. But first, we need to add a configuration file so that `built_runner` knows which generators to run and where to find your schema.
+
+Add a `build.yaml` file to your project root with the following contents, **replacing `your_package_name` and the path to your schema file** accordingly.
 
 ```yaml
 targets:
@@ -53,15 +98,15 @@ targets:
         enabled: true
       gql_build|ast_builder:
         enabled: true
-      gql_build|op_builder:
-        enabled: true
-        options:
-          schema: your_package_name|lib/schema.graphql
       gql_build|data_builder:
         enabled: true
         options:
           schema: your_package_name|lib/schema.graphql
       gql_build|var_builder:
+        enabled: true
+        options:
+          schema: your_package_name|lib/schema.graphql
+      gql_build|serializer_builder:
         enabled: true
         options:
           schema: your_package_name|lib/schema.graphql
@@ -72,14 +117,24 @@ targets:
           schema: your_package_name|lib/schema.graphql
 ```
 
-Now we can build our dart generated files by calling:
+Now you can build your dart generated files by calling:
 
 ```sh
 pub run build_runner build
 ```
 
-Or, if we are using flutter
+Or, if you are using flutter
 
 ```sh
 flutter pub run build_runner build
 ```
+
+:::tip
+
+You may need to add the `--delete-conflicting-outputs` flag to the build_runner command:
+
+```sh
+pub run build_runner build --delete-conflicting-outputs
+```
+
+:::
