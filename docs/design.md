@@ -1,9 +1,32 @@
 ---
-id: packages
-title: Packages
+id: design
+title: Design
 ---
 
-Ferry is divided into a number of seperate packages.
+Any functional GraphQL client includes three major components:
+
+1. A network interface to communicate with a GraphQL server
+2. A Cache to store the data returned from the server
+3. A management layer that routes GraphQL Operations to the network or cache
+
+Ferry was designed to be small and modular.
+
+The network interface is offloaded to the `gql_link` package, caching is done by `ferry_cache`, and the core `ferry` client handles the routing and management of GraphQL Operations.
+
+## How the Client Works
+
+In Ferry, each GraphQL Operation (including Queries, Mutations & Subscriptions) is wrapped in an `OperationRequest`, which includes the GraphQL document for the operation, any variables used in the operation, and any additional configuration need to correctly execute the request (or trigger a side effect, such as an optimistic cache update).
+
+The core Ferry Client has a very simple API, consisting of:
+
+1. **`Client.requestController`**: a single StreamController that receives all `OperationRequest`s.
+2. **`Client.responseStream()`**: a method that, given a specific `OperationRequest`, filters the `requestController` for only those events, resolves the request via the Cache or network (depending on the `OperationRequest.FetchPolicy`), and returns a Stream of `OperationResponse`s.
+
+![Ferry request architecture](../static/img/request-response.jpg)
+
+## Packages
+
+Here's a full list of Ferry pacakges, along with a short description of each:
 
 | Pub                                                                      | Package                                                       | Description                                     |
 | ------------------------------------------------------------------------ | ------------------------------------------------------------- | ----------------------------------------------- |

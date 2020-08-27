@@ -1,8 +1,8 @@
 module.exports = {
   someSidebar: {
-    Ferry: ['intro', 'packages'],
-    'Getting Started': ['setup', 'codegen', 'fetching-data'],
-    Caching: ['cache-updates'],
+    Ferry: ['intro', 'design'],
+    'Getting Started': ['setup', 'codegen'],
+    'Fetching Data': ['operations', 'cache-updates'],
     Flutter: ['flutter'],
   },
 };
