@@ -12,8 +12,8 @@ const features = [
     imageUrl: 'img/code.svg',
     description: (
       <>
-        Ferry provides fully typed cache operations. Easily and confidently read
-        and write data with IDE autocomplete.
+        Ferry provides fully typed cache operations, so you can easily and
+        confidently read and write data with IDE autocomplete.
       </>
     ),
   },
@@ -23,16 +23,16 @@ const features = [
     description: (
       <>
         Ferry automatically generates immutable data types for all GraphQL
-        operations based on your schema.
+        operations and fragments based on your schema.
       </>
     ),
   },
   {
-    title: <>Based on Dart Streams</>,
+    title: <>Easy to Use</>,
     imageUrl: 'img/stream.svg',
     description: (
       <>
-        Ferry uses a simple, Stream-based architecture that is easy to
+        Ferry uses a simple, powerful Stream-based architecture that is easy to
         understand and use.
       </>
     ),

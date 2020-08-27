@@ -1,11 +1,9 @@
 ---
-id: design
-title: Design
+id: packages
+title: Packages
 ---
 
 Ferry is divided into a number of seperate packages.
-
-## Packages
 
 | Pub                                                                      | Package                                                       | Description                                     |
 | ------------------------------------------------------------------------ | ------------------------------------------------------------- | ----------------------------------------------- |
