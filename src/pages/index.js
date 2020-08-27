@@ -57,12 +57,18 @@ function Feature({ imageUrl, title, description }) {
 function Home() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
+  const coverImageUrl = useBaseUrl('img/lighthouse.svg');
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
+      description="A GraphQL Client for Flutter & Dart"
     >
-      <header className={clsx('hero hero--primary', styles.heroBanner)}>
+      <header
+        className={clsx('hero hero--primary', styles.heroBanner)}
+        style={{
+          backgroundImage: `url("${coverImageUrl}")`,
+        }}
+      >
         <div className="container">
           <h1 className="hero__title">{siteConfig.title}</h1>
           <p className="hero__subtitle">{siteConfig.tagline}</p>

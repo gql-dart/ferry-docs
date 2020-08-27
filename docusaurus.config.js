@@ -1,6 +1,6 @@
 module.exports = {
-  title: 'Ferry',
-  tagline: 'GraphQL Client for Flutter & Dart',
+  title: 'Ferry Graphql',
+  tagline: 'A simple, powerful GraphQL Client for Flutter and Dart',
   url: 'https://ferrygraphql.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',

@@ -10,6 +10,12 @@
   text-align: center;
   position: relative;
   overflow: hidden;
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  height: 50vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  background-blend-mode: overlay;
 }
 
 @media screen and (max-width: 966px) {
@@ -32,6 +38,8 @@
 }
 
 .featureImage {
-  height: 200px;
-  width: 200px;
+  height: 100px;
+  width: 100px;
+  padding: 4rem 0;
+  fill: black;
 }
