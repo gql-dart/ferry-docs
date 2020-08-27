@@ -46,12 +46,8 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'Style Guide',
+              label: 'Introduction',
               to: 'docs/',
-            },
-            {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
             },
           ],
         },
@@ -80,6 +76,9 @@ module.exports = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Sat Mandir Khalsa. Built with Docusaurus.`,
     },
+    prism: {
+      additionalLanguages: ['dart'],
+    },
   },
   presets: [
     [
@@ -87,7 +86,7 @@ module.exports = {
       {
         docs: {
           // It is recommended to set document id as docs home page (`docs/` path).
-          homePageId: 'doc1',
+          homePageId: 'intro',
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl: 'https://github.com/gql-dart/ferry-docs/edit/master/',
