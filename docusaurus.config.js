@@ -90,8 +90,7 @@ module.exports = {
           homePageId: 'doc1',
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
+          editUrl: 'https://github.com/gql-dart/ferry-docs/edit/master/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
