@@ -3,26 +3,49 @@ id: queries
 title: Queries
 ---
 
-Running a GraphQL Query with Ferry is as easy as:
+Executing a GraphQL Query with Ferry is as easy as:
 
-1. Creating an instance of the request class [generated](codegen) for your Query.
-2. Listening to the `responseStream` for that request.
+1. Creating an instance of the [generated](codegen) request class for your Query.
+2. Listening to a `responseStream` for that request.
 
-You can locate the [generated](codegen) `G[MyQuery]Req` class in the `[my_query].req.gql.dart` file located next to your `[my_query].graphql` file.
+### Creating a Request
 
-## Running a Query
+For example, let's say we've saved the following `Reviews` Query to a file named `reviews.graphql`:
+
+```graphql
+query Reviews($first: Int, $offset: Int) {
+  reviews(first: $first, offset: $offset) {
+    id
+    stars
+    commentary
+    createdAt
+  }
+}
+```
+
+Running the Ferry [generator](codegen) will create a `reviews.req.gql.dart` file with a `GReviewsReq` class. We can instantiate it like so:
 
 ```dart
-import 'package:ferry/ferry.dart';
-import 'package:gql_http_link/gql_http_link.dart';
-import './graphql/[my_query].req.gql.dart';
+final query = GReviewsReq(
+  (b) => b
+    ..vars.first = 10
+    ..vars.offset = 0,
+);
+```
 
-final link = HttpLink("[path/to/endpoint]");
-final client = Client(link: link);
+:::note
 
-// Instantiate an `OperationRequest` using the generated `.req.gql.dart` file.
-final query = GMyQueryReq((b) => b..vars.id = "123");
+Notice how we can chain-assign nested values. Our generated Classes are based on `built_value` which uses the Builder Pattern.
 
-// Listen to responses for the given query
+Check out [this post](https://medium.com/dartlang/darts-built-value-for-immutable-object-models-83e2497922d4) for more information on `built_value` classes and how to use them.
+
+:::
+
+
+### Listening to the Response Stream
+
+Now, all we need to do is listen to the `responseStream`.
+
+```
 client.responseStream(query).listen((response) => print(response));
 ```

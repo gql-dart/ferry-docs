@@ -3,11 +3,9 @@ id: mutations
 title: Mutations
 ---
 
-Mutations are executed in the same way as queries.
+Mutations are executed exactly the same way as [queries](queries).
 
 ## Running a Mutation
-
-In the below example, we're only listening to the first non-optimistic response, since an optimistic response would be returned immediately.
 
 ```dart
 import 'package:ferry/ferry.dart';
@@ -20,14 +18,19 @@ final client = Client(link: link);
 // Instantiate an `OperationRequest` using the generated `.req.gql.dart` file.
 final mutation = GMyMutationReq((b) => b..vars.id = "123");
 
-// We can listen for only the first non-optimistic response
-client
-  .responseStream(mutation)
-  .firstWhere((response) => response.dataSource != DataSource.Optimistic)
-  .then((response) => print(response));
+// Listen to responses for the given mutation
+client.responseStream(mutation).listen((response) => print(response));
 ```
 
-## Optimistic updates
+## Optimistic Updates
+
+Users often expect that changes they make within applications are reflected in the UI immediately. To achieve this, we can provide our `OperationRequest` with an `optimisticResponse`, which will trigger an `OperationResponse` that includes the optimistic data immediately. Then, once the actual mutation response is received from the server, a second `OperationResponse` will be triggered.
+
+To pass an `optimisticResponse` to 
+
+```
+
+```
 
 
 

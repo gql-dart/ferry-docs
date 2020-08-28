@@ -29,6 +29,17 @@ When I run the generator, Ferry will create the following classes:
 
 In addition, Ferry will generate any necessary supporting classes from your GraphQL schema, including `input` types, `enum`s, and custom `scalars`.
 
+:::important
+
+Ferry's generated classes are based on the `built_value` package, which means they are:
+1. **immutable**: once they are created, they cannot be changed.
+2. **equatable**: multiple instances with identical values have `==` equality.
+3. **serializable**: can be serialized using the `toJson()` and `fromJson()` methods.
+4. **use the builder pattern**: can be deeply copied with modifications using the Builder Pattern.
+
+Check out [this post](https://medium.com/dartlang/darts-built-value-for-immutable-object-models-83e2497922d4) for more information on `built_value` classes and how to use them.
+:::
+
 :::note
 
 As you can see, Ferry prepends `"G"` to all class names. This is due to a limitation in the `built_value` package on which `ferry_generator` is based.
