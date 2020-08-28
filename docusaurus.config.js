@@ -79,6 +79,11 @@ module.exports = {
     prism: {
       additionalLanguages: ['dart'],
     },
+    algolia: {
+      apiKey: '374807832430e726e5fc0d0c2ec40846',
+      indexName: 'ferrygraphql',
+      searchParameters: {}, // Optional (if provided by Algolia)
+    },
   },
   presets: [
     [
