@@ -23,7 +23,7 @@ query AllPokemon($first: Int!) {
 
 When I run the generator, Ferry will create the following classes:
 
-1. `GAllPokemonReq`: This class extends `OperationRequest` and includes the GraphQL document and variables for this query. It also includes other necessary settings to adjust how this operation is executed (e.g. `FetchPolicy`).
+1. `GAllPokemonReq`: This class extends `OperationRequest` and includes the GraphQL document and variables for this query. It also includes other necessary configuration to adjust how this operation is executed (e.g. `FetchPolicy`).
 2. `GAllPokemonVars`: This class includes any variables used in the query (just "first", in this case)
 3. `GAllPokemonData`:  This class represents the data returned by the query, including the "pokemons" field and all child fields.
 
@@ -55,9 +55,9 @@ get-graphql-schema ENDPOINT_URL > lib/schema.graphql
 
 As shown in the example above, we need to save all of our GraphQL operations to files that end with the `.graphql` extension.
 
-The generated files are created as siblings to the `.graphql` file. To reduce clutter, we recommend placing your `.graphql` files in a `/graphql` subdirectory. For example, if I have an `AllPokemon` widget that will use my `AllPokemon` query, I might use the following directory structure:
+The generated files are created as siblings to the `.graphql` file. To reduce clutter, we recommend placing your `.graphql` files in a `/graphql` subdirectory. For example, if I have an `AllPokemon` widget that will use the `AllPokemon` query from above, I might use the following directory structure:
 
-```
+```bash
 lib/
   src/
     components/
@@ -86,7 +86,7 @@ If your operations have dependencies in other `.graphql` files, you can import t
 
 ## Build Generated Queries
 
-Now that we've downloaded our GraphQL schema and written our GraphQL Operations, we're almost ready to run the generator. But first, we need to add a configuration file so that `built_runner` knows which generators to run and where to find your schema.
+Now that we've [downloaded our GraphQL schema](codegen#download-your-graphql-schema) and [saved our GraphQL Operations](codegen#create-graphql-files) to `.graphql` files, we're almost ready to run the generator. The final step is to add a configuration file so that `built_runner` knows which generators to run and where to find our schema.
 
 Add a `build.yaml` file to your project root with the following contents, **replacing `your_package_name` and the path to your schema file** accordingly.
 
@@ -138,3 +138,21 @@ pub run build_runner build --delete-conflicting-outputs
 ```
 
 :::
+
+After running the generator, your directory should look something like this:
+
+```bash
+lib/
+  src/
+    components/
+      graphql/
+        all_pokemon.graphql
+        all_pokemon.ast.gql.dart # generated
+        all_pokemon.data.gql.dart # generated
+        all_pokemon.data.gql.g.dart # generated
+        all_pokemon.req.gql.dart # generated
+        all_pokemon.req.gql.g.dart # generated
+        all_pokemon.var.gql.dart # generated
+        all_pokemon.var.gql.g.dart # generated
+      all_pokemon.dart
+```

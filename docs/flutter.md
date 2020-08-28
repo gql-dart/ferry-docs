@@ -1,6 +1,6 @@
 ---
-id: flutter
-title: Using with Flutter
+id: flutter-query-widget
+title: Query Widget
 ---
 The library includes a `Query` flutter widget, which is a simple wrapper around the `StreamBuilder` widget.
 

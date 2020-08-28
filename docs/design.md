@@ -3,7 +3,7 @@ id: design
 title: Design
 ---
 
-Any functional GraphQL client includes three major components:
+Any practical GraphQL client includes three major components:
 
 1. A network interface to communicate with a GraphQL server
 2. A Cache to store the data returned from the server
@@ -19,8 +19,8 @@ In Ferry, each GraphQL Operation (including Queries, Mutations & Subscriptions) 
 
 The core Ferry Client has a very simple API, consisting of:
 
-1. **`Client.requestController`**: a single StreamController that receives all `OperationRequest`s.
-2. **`Client.responseStream()`**: a method that, given a specific `OperationRequest`, filters the `requestController` for only those events, resolves the request via the Cache or network (depending on the `OperationRequest.FetchPolicy`), and returns a Stream of `OperationResponse`s.
+1. **`requestController`**: a single StreamController that receives all `OperationRequest`s.
+2. **`responseStream(OperationRequest request)`**: returns a Stream that filters the `requestController` for instances of the request, resolves the request via the Cache or network, and returns a Stream of `OperationResponse`s.
 
 ![Ferry request architecture](../static/img/request-response.jpg)
 

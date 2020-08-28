@@ -1,10 +1,37 @@
 ---
-id: cache-updates
-title: Updating the Cache
+id: mutations
+title: Mutations
 ---
 
+Mutations are executed in the same way as queries.
 
-### With UpdateCacheHandlers
+## Running a Mutation
+
+In the below example, we're only listening to the first non-optimistic response, since an optimistic response would be returned immediately.
+
+```dart
+import 'package:ferry/ferry.dart';
+import 'package:gql_http_link/gql_http_link.dart';
+import './graphql/[my_mutation].req.gql.dart';
+
+final link = HttpLink("[path/to/endpoint]");
+final client = Client(link: link);
+
+// Instantiate an `OperationRequest` using the generated `.req.gql.dart` file.
+final mutation = GMyMutationReq((b) => b..vars.id = "123");
+
+// We can listen for only the first non-optimistic response
+client
+  .responseStream(mutation)
+  .firstWhere((response) => response.dataSource != DataSource.Optimistic)
+  .then((response) => print(response));
+```
+
+## Optimistic updates
+
+
+
+## With UpdateCacheHandlers
 
 The Client allows arbitrary cache updates following mutations, similar to functionality provided by Apollo Client's mutation `update` function. However, in order for mutations to work offline (still a WIP), the client must be aware of all `UpdateCacheHandlers`.
 
