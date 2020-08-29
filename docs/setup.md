@@ -11,12 +11,12 @@ Add the following to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  ferry:  #[latest-version]
-  gql_http_link:  #[latest-version]
+  ferry: #[latest-version]
+  gql_http_link: #[latest-version]
 
 dev_dependencies:
-  ferry_generator:  #[latest-version]
-  build_runner:  #[latest-version]
+  ferry_generator: #[latest-version]
+  build_runner: #[latest-version]
 ```
 
 ### Initialize the Client
@@ -42,14 +42,14 @@ To use the `HiveStore`, you'll need to add these dependencies to your `pubspect.
 
 ```yaml
 dependencies:
-  ferry:  #[latest-version]
-  gql_http_link:  #[latest-version]
-  hive:  #[latest-version]
-  ferry_hive_store:  #[latest-version]
+  ferry: #[latest-version]
+  gql_http_link: #[latest-version]
+  hive: #[latest-version]
+  ferry_hive_store: #[latest-version]
 
 dev_dependencies:
-  ferry_generator:  #[latest-version]
-  build_runner:  #[latest-version]
+  ferry_generator: #[latest-version]
+  build_runner: #[latest-version]
 ```
 
 :::important

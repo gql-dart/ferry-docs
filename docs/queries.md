@@ -41,7 +41,6 @@ Check out [this post](https://medium.com/dartlang/darts-built-value-for-immutabl
 
 :::
 
-
 ### Listening to the Response Stream
 
 Now, all we need to do is listen to the `responseStream`.

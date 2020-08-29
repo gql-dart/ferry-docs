@@ -25,13 +25,14 @@ When I run the generator, Ferry will create the following classes:
 
 1. `GAllPokemonReq`: This class extends `OperationRequest` and includes the GraphQL document and variables for this query. It also includes other necessary configuration to adjust how this operation is executed (e.g. `FetchPolicy`).
 2. `GAllPokemonVars`: This class includes any variables used in the query (just "first", in this case)
-3. `GAllPokemonData`:  This class represents the data returned by the query, including the "pokemons" field and all child fields.
+3. `GAllPokemonData`: This class represents the data returned by the query, including the "pokemons" field and all child fields.
 
 In addition, Ferry will generate any necessary supporting classes from your GraphQL schema, including `input` types, `enum`s, and custom `scalars`.
 
 :::important
 
 Ferry's generated classes are based on the `built_value` package, which means they are:
+
 1. **immutable**: once they are created, they cannot be changed.
 2. **equatable**: multiple instances with identical values have `==` equality.
 3. **serializable**: can be serialized using the `toJson()` and `fromJson()` methods.
@@ -80,7 +81,7 @@ lib/
 
 :::caution
 
-Make sure that all `.graphql` files are located in the `lib` directory (or a subdirectory). The generator cannot read files located outside of `lib`. 
+Make sure that all `.graphql` files are located in the `lib` directory (or a subdirectory). The generator cannot read files located outside of `lib`.
 
 :::
 
@@ -88,14 +89,13 @@ See the [examples](https://github.com/gql-dart/ferry/tree/master/examples) for m
 
 ### Importing from other `.graphql` files
 
-If your operations have dependencies in other `.graphql` files, you can import them by adding a *comment import* statement at the top of your `.graphql` file.
+If your operations have dependencies in other `.graphql` files, you can import them by adding a _comment import_ statement at the top of your `.graphql` file.
 
 ```graphql
 # import './pokemon_card_fragment.graphql'
 ```
 
-
-## Build Generated Queries
+## Build Generated Classes
 
 Now that we've [downloaded our GraphQL schema](codegen#download-your-graphql-schema) and [saved our GraphQL Operations](codegen#create-graphql-files) to `.graphql` files, we're almost ready to run the generator. The final step is to add a configuration file so that `built_runner` knows which generators to run and where to find our schema.
 
