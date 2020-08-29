@@ -1,55 +1,21 @@
 ---
-id: flutter-query-widget
-title: Query Widget
+id: flutter
+title: Using with Flutter
 ---
-The library includes a `Query` flutter widget, which is a simple wrapper around the `StreamBuilder` widget.
 
-This example assumes we've registered our `Client` instance with `get_it`, but you can use any dependency injection.
+The `ferry_flutter` package provides Widgets for your convenience that make it easy to use Ferry with Flutter.
 
-```dart
-import 'package:flutter/material.dart';
-import 'package:ferry/ferry.dart';
-import 'package:get_it/get_it.dart';
-import 'package:ferry_flutter/ferry_flutter.dart';
-import 'package:built_collection/built_collection.dart';
+Since the entire Ferry architecture is [built around native Dart Streams](design), `ferry_flutter` Widgets are just simple wrappers around the Flutter `StreamBuilder` Widget.
 
-import './graphql/all_pokemon.data.gql.dart';
-import './graphql/all_pokemon.req.gql.dart';
-import './graphql/all_pokemon.var.gql.dart';
-import './pokemon_card.dart';
+## Setup
 
-class AllPokemonScreen extends StatelessWidget {
-  final client = GetIt.I<Client>();
+To use `ferry_flutter`, we must include it in our `pubspec.yaml`.
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('All Pokemon'),
-      ),
-      body: Query(
-        client: client,
-        operationRequest: GAllPokemonReq(
-          (b) => b..vars.first = 500,
-        ),
-        builder: (
-          BuildContext context,
-          OperationResponse<GAllPokemonData, GAllPokemonVars> response,
-        ) {
-          if (response.loading)
-            return Center(child: CircularProgressIndicator());
-
-          final pokemons = response.data?.queryPokemon ?? BuiltList();
-
-          return ListView.builder(
-            itemCount: pokemons.length,
-            itemBuilder: (context, index) => PokemonCard(
-              pokemon: pokemons[index],
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
+```yaml
+dependencies:
+  ferry_flutter: #[latest-version]
 ```
+
+## Dependency Injection
+
+We will need to pass our Ferry client to our `ferry_flutter` Widgets. While `ferry_flutter` can be used with any dependency injection library, we recommend using [`get_it`](https://pub.dev/packages/get_it).

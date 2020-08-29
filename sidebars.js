@@ -3,6 +3,6 @@ module.exports = {
     Ferry: ['intro', 'design'],
     'Getting Started': ['setup', 'codegen'],
     'Fetching Data': ['queries', 'mutations', 'pagination'],
-    'Using with Flutter': ['flutter-query-widget'],
+    Flutter: ['flutter', 'flutter-query-widget'],
   },
 };
