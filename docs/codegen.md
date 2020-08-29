@@ -42,7 +42,7 @@ Check out [this post](https://medium.com/dartlang/darts-built-value-for-immutabl
 
 :::note
 
-As you can see, Ferry prepends `"G"` to all class names. This is due to a limitation in the `built_value` package on which `ferry_generator` is based.
+As you can see, Ferry prepends `"G"` to all class names. This is due to a limitation in the `built_value` package and is necessary to ensure classes get generated correctly.
 
 :::
 

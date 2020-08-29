@@ -23,10 +23,10 @@ query Reviews($first: Int, $offset: Int) {
 }
 ```
 
-Running the Ferry [generator](codegen) will create a `reviews.req.gql.dart` file with a `GReviewsReq` class. We can instantiate it like so:
+Running the Ferry [generator](codegen) will create a `reviews.req.gql.dart` file with a Class named `GReviewsReq`. We can instantiate it like so:
 
 ```dart
-final query = GReviewsReq(
+final reviewsReq = GReviewsReq(
   (b) => b
     ..vars.first = 10
     ..vars.offset = 0,
@@ -35,7 +35,7 @@ final query = GReviewsReq(
 
 :::note
 
-Notice how we can chain-assign nested values. Our generated Classes are based on `built_value` which uses the Builder Pattern.
+Notice how we can chain-assign nested values. Ferry's generated classes are based on `built_value` which uses the Builder Pattern.
 
 Check out [this post](https://medium.com/dartlang/darts-built-value-for-immutable-object-models-83e2497922d4) for more information on `built_value` classes and how to use them.
 
@@ -46,6 +46,6 @@ Check out [this post](https://medium.com/dartlang/darts-built-value-for-immutabl
 
 Now, all we need to do is listen to the `responseStream`.
 
-```
-client.responseStream(query).listen((response) => print(response));
+```dart
+client.responseStream(reviewsReq).listen((response) => print(response));
 ```
