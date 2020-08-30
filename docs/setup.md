@@ -78,7 +78,7 @@ Future<Client> initClient() async {
   // OR, if using flutter
   // await Hive.initFlutter();
 
-  final box = await Hive.openBox("graphql");
+  final box = await Hive.openBox<Map<String, dynamic>>("graphql");
 
   final store = HiveStore(box);
 
