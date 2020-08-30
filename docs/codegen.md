@@ -167,3 +167,23 @@ lib/
         all_pokemon.var.gql.g.dart # generated
       all_pokemon.dart
 ```
+
+:::tip
+
+You may want to configure your IDE to hide the generated files, since it can get unwieldy, even if you're placing your `.graphql` files in a subdirectory.
+
+If you use VSCode, you can include the following in your `/.vscode/settings.json` file:
+
+```json
+{
+  "files.exclude": {
+    "**/*.ast.gql.dart": true,
+    "**/*.req.gql.dart": true,
+    "**/*.data.gql.dart": true,
+    "**/*.var.gql.dart": true,
+    "**/*.gql.g.dart": true
+  }
+}
+```
+
+:::
