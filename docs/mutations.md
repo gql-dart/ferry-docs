@@ -76,7 +76,7 @@ final createReviewReq = GCreateReviewReq(
 
 ## Updating the Cache
 
-Sometimes we need to update the cache in response to a mutation. Ferry allows arbitrary cache updates following any Operation using an `UpdateCacheHandler` callback which gets called when any `OperationResponse` for that Operation is received.
+Sometimes we need to update the cache in response to a mutation. Ferry allows arbitrary cache updates following any Operation using the `UpdateCachePlugin`, which allows us to configure `UpdateCacheHandler` callbacks to run with each `OperationResponse`.
 
 ```dart
 typedef UpdateCacheHandler<TData, TVars> = void Function(
@@ -118,19 +118,26 @@ Since Dart doesn't yet have algebraic data types, to avoid receiving a type erro
 
 :::
 
-Now that we've created our `createReviewHandler`, we can add it to our `ClientOptions.updateCacheHandlers` Map using the key `"createReviewHandler"`, which we'll later use to trigger this handler from our mutation request.
-
 If Ferry, the client must be aware of all `UpdateCacheHandler`s. This is slightly different from how other GraphQL clients (like Apollo) work, but it's necessary to enable features such as offline mutations.
 
+Now that we've created our `createReviewHandler`, we can add it to our `UpdateCachePlugin` using the key `"createReviewHandler"`, which we'll later use to trigger this handler from our mutation request. We'll then need to add the plugin to our client.
+
 ```dart
-final clientOptions = ClientOptions(
+import 'package:gql_http_link/gql_http_link.dart';
+import 'package:ferry/ferry.dart';
+import 'package:ferry/plugins.dart';
+
+final link = HttpLink("[path/to/endpoint]");
+final client = Client(link: link);
+
+final updateCachePlugin = UpdateCachePlugin(
+  cache: client.cache,
   updateCacheHandlers: {
-    "createReviewHandler": createReviewHandler,
+    'createReviewHandler': createReviewHandler,
   },
 );
 
-final link = HttpLink("[path/to/endpoint]");
-final client = Client(link: link, options: clientOptions);
+client.plugins.add(updateCachePlugin);
 ```
 
 Now we can tell Ferry to trigger our handler when it receives an `OperationResponse` for our mutation.
