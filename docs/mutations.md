@@ -87,6 +87,8 @@ typedef UpdateCacheHandler<TData, TVars> = void Function(
 
 The `CacheProxy` passed to the handler includes methods to read & write data to & from the cache, including `readQuery`, `readFragment`, `writeQuery` and `writeFragment`.
 
+### Creating an `UpdateCacheHandler`
+
 Continuing our example from above, we may want to update our[ `Reviews`](http://localhost:3000/docs/queries#creating-a-request) Query with the result of executing the `CreateReview` Mutation. To do so, we'd write the following `UpdateCacheHandler`:
 
 ```dart
@@ -118,6 +120,8 @@ Since Dart doesn't yet have algebraic data types, to avoid receiving a type erro
 
 :::
 
+### Passing Handlers to the Client
+
 If Ferry, the client must be aware of all `UpdateCacheHandler`s. This is slightly different from how other GraphQL clients (like Apollo) work, but it's necessary to enable features such as offline mutations.
 
 Now that we've created our `createReviewHandler`, we can add it to our `UpdateCachePlugin` using the key `"createReviewHandler"`, which we'll later use to trigger this handler from our mutation request. We'll then need to add the plugin to our client.
@@ -139,6 +143,8 @@ final updateCachePlugin = UpdateCachePlugin(
 
 client.plugins.add(updateCachePlugin);
 ```
+
+### Triggering a Handler
 
 Now we can tell Ferry to trigger our handler when it receives an `OperationResponse` for our mutation.
 
