@@ -3,9 +3,9 @@ id: mutations
 title: Mutations
 ---
 
-Mutations are executed exactly the same way as [queries](queries):
+Mutations are executed exactly the same way as [queries](queries.md):
 
-1. Create an instance of the [generated](codegen) request class for your Mutation.
+1. Create an instance of the [generated](codegen.md) request class for your Mutation.
 2. Listen to a `responseStream` for that request.
 
 ### Creating a Request
@@ -37,7 +37,7 @@ input ReviewInput {
 }
 ```
 
-Running the Ferry [generator](codegen) will create a `create_review.req.gql.dart` file with a Class named `GCreateReviewReq`. We can instantiate it like this:
+Running the Ferry [generator](codegen.md) will create a `create_review.req.gql.dart` file with a Class named `GCreateReviewReq`. We can instantiate it like this:
 
 ```dart
 final createReviewReq = GCreateReviewReq(
@@ -89,7 +89,7 @@ The `CacheProxy` passed to the handler includes methods to read & write data to 
 
 ### Creating an `UpdateCacheHandler`
 
-Continuing our example from above, we may want to update our[ `Reviews`](http://localhost:3000/docs/queries#creating-a-request) Query with the result of executing the `CreateReview` Mutation. To do so, we'd write the following `UpdateCacheHandler`:
+Continuing our example from above, we may want to update our[ `Reviews`](queries.md#creating-a-request) Query with the result of executing the `CreateReview` Mutation. To do so, we'd write the following `UpdateCacheHandler`:
 
 ```dart
 import './graphql/create_review.data.gql.dart';

@@ -8,7 +8,7 @@ To build your own plugin, simply extend the [`Plugin`](https://pub.dev/documenta
 - `buildRequestTransformer`
 - `buildResponseTransformer`
 
-For example, here's the actual Ferry core plugin used to implement [pagination](pagination) functionality:
+For example, here's the actual Ferry core plugin used to implement [pagination](pagination.md) functionality:
 
 ```dart
 import 'dart:async';

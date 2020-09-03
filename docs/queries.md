@@ -5,7 +5,7 @@ title: Queries
 
 Executing a GraphQL Query with Ferry is as easy as:
 
-1. Creating an instance of the [generated](codegen) request class for your Query.
+1. Creating an instance of the [generated](codegen.md) request class for your Query.
 2. Listening to a `responseStream` for that request.
 
 ### Creating a Request
@@ -23,7 +23,7 @@ query Reviews($first: Int, $offset: Int) {
 }
 ```
 
-Running the Ferry [generator](codegen) will create a `reviews.req.gql.dart` file with a Class named `GReviewsReq`. We can instantiate it like so:
+Running the Ferry [generator](codegen.md) will create a `reviews.req.gql.dart` file with a Class named `GReviewsReq`. We can instantiate it like so:
 
 ```dart
 final reviewsReq = GReviewsReq(
