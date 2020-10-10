@@ -8,7 +8,7 @@ Executing a GraphQL Query with Ferry is as easy as:
 1. Creating an instance of the [generated](codegen.md) request class for your Query.
 2. Listening to a `responseStream` for that request.
 
-### Creating a Request
+## Creating a Request
 
 For example, let's say we've saved the following `Reviews` Query to a file named `reviews.graphql`:
 
@@ -41,7 +41,9 @@ Check out [this post](https://medium.com/dartlang/darts-built-value-for-immutabl
 
 :::
 
-### Listening to the Response Stream
+## Fetch Policies
+
+## Listening to the Response Stream
 
 Now, all we need to do is listen to the `responseStream`.
 
