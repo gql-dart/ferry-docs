@@ -5,7 +5,7 @@ title: Using with Flutter
 
 The `ferry_flutter` package provides Widgets for your convenience that make it easy to use Ferry with Flutter.
 
-Since the entire Ferry architecture is [built around native Dart Streams](design.md), `ferry_flutter` Widgets are just simple wrappers around the Flutter `StreamBuilder` Widget.
+Since the entire Ferry architecture is built around native Dart Streams, `ferry_flutter` Widgets are just simple wrappers around the Flutter `StreamBuilder` Widget.
 
 ## Setup
 

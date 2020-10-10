@@ -1,9 +1,15 @@
 module.exports = {
-  someSidebar: {
-    Ferry: ['intro', 'design', 'plugins'],
+  mainSidebar: {
+    Ferry: ['intro', 'how-it-works'],
     'Getting Started': ['setup', 'codegen'],
-    'Fetching Data': ['queries', 'mutations', 'pagination'],
+    Fetching: ['queries', 'mutations', 'pagination'],
+    Caching: [
+      'cache-configuration',
+      'cache-interaction',
+      'garbage-collection',
+      'field-policies',
+    ],
     Flutter: ['flutter', 'flutter-query-widget', 'flutter-mutation-widget'],
-    Advanced: ['custom-scalars', 'custom-plugins'],
+    Advanced: ['custom-scalars', 'customization'],
   },
 };
