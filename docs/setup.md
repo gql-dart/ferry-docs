@@ -74,7 +74,7 @@ import 'package:hive/hive.dart';
 // import 'package:hive_flutter/hive_flutter.dart';
 
 Future<Client> initClient() async {
-  Hive.init();
+  Hive.init('hive_data');
   // OR, if using flutter
   // await Hive.initFlutter();
 
@@ -84,7 +84,7 @@ Future<Client> initClient() async {
 
   final cache = Cache(store: store);
 
-  final link = HttpLink("[path/to/endpoint]");
+  final link = HttpLink('[path/to/endpoint]');
 
   final client = Client(
     link: link,
@@ -94,7 +94,3 @@ Future<Client> initClient() async {
   return client;
 }
 ```
-
-## ClientOptions
-
-In addition to `cache` and `link` options, you can initialize the client with an optional `options` object. To learn more, see the [API docs](https://pub.dev/documentation/ferry/latest/ferry/ClientOptions-class.html) for `ClientOptions`.

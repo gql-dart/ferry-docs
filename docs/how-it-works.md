@@ -3,7 +3,7 @@ id: how-it-works
 title: How It Works
 ---
 
-When you run the Ferry [code generator](codegen.md), it searches your `src` directory for `.graphql` files and creates an `OperationRequest` class for every operation automatically.
+When you run the Ferry [code generator](codegen.md), it searches your `src` directory for `.graphql` files and creates an `OperationRequest` class for every Query, Mutation, and Subscription it finds. The request includes everything needed to execute the operation, including the operation itself, any variables, optimistic data, etc.
 
 You can execute these requests by passing them to `Client.request()`, which adds the request to the `Client.requestController`, and listening to the returned Stream for an `OperationResponse`. Responses are resolved by either the provided [Link](https://pub.dev/packages/gql_link) or from the [Cache](cache-configuration.md), depending on the request's [FetchPolicy](queries.md#field-policies).
 

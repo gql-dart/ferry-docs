@@ -3,9 +3,7 @@ id: flutter
 title: Using with Flutter
 ---
 
-The `ferry_flutter` package provides Widgets for your convenience that make it easy to use Ferry with Flutter.
-
-Since the entire Ferry architecture is built around native Dart Streams, `ferry_flutter` Widgets are just simple wrappers around the Flutter `StreamBuilder` Widget.
+The `ferry_flutter` package provides an [Operation](flutter-operation-widget.md) Widget for your convenience that makes it easy to use Ferry with Flutter.
 
 ## Setup
 
@@ -18,4 +16,4 @@ dependencies:
 
 ## Dependency Injection
 
-We will need to pass our Ferry client to our `ferry_flutter` Widgets. While `ferry_flutter` can be used with any dependency injection library, we recommend using [`get_it`](https://pub.dev/packages/get_it).
+We will need to pass our Ferry client to our `ferry_flutter` Widget. While `ferry_flutter` can be used with any dependency injection library, we recommend using [`get_it`](https://pub.dev/packages/get_it).
