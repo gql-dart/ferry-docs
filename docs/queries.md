@@ -49,24 +49,3 @@ Now, all we need to do is listen to the `request()` stream.
 ```dart
 client.request(reviewsReq).listen((response) => print(response));
 ```
-
-## Fetch Policies
-
-By default, Query operations use the `CacheFirst` FetchPolicy. However, you can specify a different FetchPolicy when creating your request:
-
-```dart
-final reviewsReq = GAllPokemonReq(
-  (b) => b
-    ..fetchPolicy = FetchPolicy.NetworkOnly
-    ..vars.first = 10
-    ..vars.offset = 0,
-);
-```
-
-The FetchPolicy options include:
-
-1. `CacheFirst`: Return result from cache. Only fetch from network if cached result is not available.
-2. `CacheAndNetwork`: Return result from cache first (if it exists), then return network result once it's available.
-3. `NetworkOnly`: Return result from network, fail if network call doesn't succeed, save to cache.
-4. `CacheOnly`: Return result from cache.
-5. `NoCache`: Return result from network, fail if network call doesn't succeed, don't save to cache
