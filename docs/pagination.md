@@ -29,7 +29,7 @@ final reviewsReq = GReviewsReq(
     ..vars.offset = 0,
 );
 
-client.responseStream(reviewsReq).listen((response) => print(response));
+client.request(reviewsReq).listen((response) => print(response));
 ```
 
 We can refetch the query by adding the request to the `requestController`:
@@ -38,7 +38,7 @@ We can refetch the query by adding the request to the `requestController`:
 client.requestController.add(reviewsReq);
 ```
 
-Once the response is received, any `responseStream`s that were listening to `reviewsReq` will get updated with the new data.
+Once the response is received, any `request()` Streams that were listening to `reviewsReq` will get updated with the new data.
 
 ## Pagination
 
@@ -60,4 +60,4 @@ final nextReviewsReq = reviewsReq.rebuild(
 client.requestController.add(nextReviewsReq);
 ```
 
-The next event received by our `responseStream` will now include all six reviews.
+The next event received by our `request()` Stream will now include all six reviews.

@@ -6,7 +6,8 @@ title: Mutations
 Mutations are executed exactly the same way as [queries](queries.md):
 
 1. Create an instance of the [generated](codegen.md) request class for your Mutation.
-2. Listen to a `responseStream` for that request.
+2. Call `Client.request()` with your request.
+3. Listen to the returned Stream.
 
 ### Creating a Request
 
@@ -47,12 +48,12 @@ final createReviewReq = GCreateReviewReq(
 );
 ```
 
-### Listening to the Response Stream
+### Listening to the Request Stream
 
 Now we can execute the mutation and listen for a response like so:
 
 ```dart
-client.responseStream(createReviewReq).listen((response) => print(response));
+client.request(createReviewReq).listen((response) => print(response));
 ```
 
 ## Optimistic Updates
@@ -76,7 +77,7 @@ final createReviewReq = GCreateReviewReq(
 
 ## Updating the Cache
 
-Sometimes we need to update the cache in response to a mutation. Ferry allows arbitrary cache updates following any Operation using the `UpdateCachePlugin`, which allows us to configure `UpdateCacheHandler` callbacks to run with each `OperationResponse`.
+Sometimes we need to update the cache in response to a mutation. Ferry allows arbitrary cache updates following any Operation using `UpdateCacheHandler` callbacks, which run whenever an `OperationResponse` is received.
 
 ```dart
 typedef UpdateCacheHandler<TData, TVars> = void Function(
@@ -124,7 +125,7 @@ Since Dart doesn't yet have algebraic data types, to avoid receiving a type erro
 
 If Ferry, the client must be aware of all `UpdateCacheHandler`s. This is slightly different from how other GraphQL clients (like Apollo) work, but it's necessary to enable features such as offline mutations.
 
-Now that we've created our `createReviewHandler`, we can add it to our `UpdateCachePlugin` using the key `"createReviewHandler"`, which we'll later use to trigger this handler from our mutation request. We'll then need to add the plugin to our client.
+Now that we've created our `createReviewHandler`, we can add it to our Client using the key `"createReviewHandler"`, which we'll later use to trigger this handler from our mutation request.
 
 ```dart
 import 'package:gql_http_link/gql_http_link.dart';
@@ -134,14 +135,13 @@ import 'package:ferry/plugins.dart';
 final link = HttpLink("[path/to/endpoint]");
 final client = Client(link: link);
 
-final updateCachePlugin = UpdateCachePlugin(
-  cache: client.cache,
+final client = Client(
+  link: link,
+  cache: cache,
   updateCacheHandlers: {
     'createReviewHandler': createReviewHandler,
   },
 );
-
-client.plugins.add(updateCachePlugin);
 ```
 
 ### Triggering a Handler

@@ -57,10 +57,10 @@ First, install the tool:
 npm install -g get-graphql-schema
 ```
 
-Next, download the schema:
+Next, download the schema by running the following command, replacing `[ENDPOINT_URL]` with the url of your GraphQL endpoint:
 
 ```sh
-get-graphql-schema ENDPOINT_URL > lib/schema.graphql
+get-graphql-schema [ENDPOINT_URL] > lib/schema.graphql
 ```
 
 ## Create `.graphql` Files
