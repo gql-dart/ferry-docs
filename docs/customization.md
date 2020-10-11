@@ -37,6 +37,8 @@ class CacheTypedLink extends TypedLink {
 }
 ```
 
+## Forwarding `TypedLink`s
+
 Not all links need to resolve the request directly. Some links simply modify the request or response stream by calling the `forward()` callback on the `request()` method. This defers resolution of the request to the next link in the chain.
 
 For example, ferry uses the following link to automatically add `__typename` fields to each node of the GraphQL operation.
@@ -75,7 +77,9 @@ class AddTypenameTypedLink extends TypedLink {
 }
 ```
 
-The final link in the chain must be a "terminating" link, i.e. a link that does not forward the request down the chain. TypedLinks can be chained together using the `TypedLink.from()` method.
+## Chaining `TypedLink`s Together
+
+TypedLinks can be chained together using the `TypedLink.from()` method.
 
 The following will create a link that adds `__typename` fields to the request, then resolves the request from the Cache:
 
@@ -85,6 +89,12 @@ final myTypedLink = TypedLink.from([
   CacheTypedLink(),
 ]);
 ```
+
+:::warning
+
+The final link in the chain must be a "terminating" link, i.e. a link that does not forward the request down the chain.
+
+:::
 
 You can then use this link to execute requests by listening to the Stream returned by the `request()` method:
 
