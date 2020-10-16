@@ -154,4 +154,4 @@ The cache normally obtains `__typename` information by adding the `__typename` f
 
 ### The `fields` Property
 
-The final property within `TypePolicy` is the `fields` property, which is a map from string field names to `FieldPolicy` objects. For more information on this field, see [Customizing the behavior of cached fields](field-policies.md).
+The final property within `TypePolicy` is the `fields` property, which is a map from string field names to `FieldPolicy` objects.
