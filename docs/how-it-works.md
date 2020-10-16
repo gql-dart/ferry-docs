@@ -47,6 +47,6 @@ Ferry is made up of several individual packages:
 [package:ferry_hive_store:source]: https://github.com/gql-dart/ferry/tree/master/ferry_hive_store
 [package:ferry_hive_store]: https://pub.dartlang.org/packages/ferry_hive_store
 [package:ferry_hive_store:version]: https://img.shields.io/pub/v/ferry_hive_store.svg?style=flat-square
-[package:normalize:source]: ./normalize
+[package:normalize:source]: https://github.com/gql-dart/ferry/tree/master/normalize
 [package:normalize]: https://pub.dartlang.org/packages/normalize
 [package:normalize:version]: https://img.shields.io/pub/v/normalize.svg?style=flat-square
