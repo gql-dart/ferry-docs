@@ -84,6 +84,9 @@ module.exports = {
       indexName: 'ferrygraphql',
       searchParameters: {}, // Optional (if provided by Algolia)
     },
+    googleAnalytics: {
+      trackingID: 'UA-180710528-1',
+    },
   },
   presets: [
     [
