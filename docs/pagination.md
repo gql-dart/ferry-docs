@@ -9,6 +9,8 @@ Fetching new data for an `OperationRequest` in Ferry is easy. Just add a request
 
 If no `requestId` is provided, Ferry will automatically assign a `uuid` when the request is instantiated.
 
+If you're using Flutter, make sure to either instantiate the request outside of the `build()` method or explicitly provide a `requestId`. Otherwise, a new request will be instantiated on every build with a new ID.
+
 ```dart
 final reviewsReq = GReviewsReq();
 
