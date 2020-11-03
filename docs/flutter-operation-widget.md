@@ -22,6 +22,10 @@ import './pokemon_card.dart';
 class AllPokemonScreen extends StatelessWidget {
   final client = GetIt.I<Client>();
 
+  final req = GAllPokemonReq(
+    (b) => b..vars.first = 50,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,9 +34,7 @@ class AllPokemonScreen extends StatelessWidget {
       ),
       body: Operation(
         client: client,
-        operationRequest: GAllPokemonReq(
-          (b) => b..vars.first = 50,
-        ),
+        operationRequest: req,
         builder: (
           BuildContext context,
           OperationResponse<GAllPokemonData, GAllPokemonVars> response,
@@ -54,6 +56,14 @@ class AllPokemonScreen extends StatelessWidget {
   }
 }
 ```
+
+:::warning
+
+If you instantiate a request inside the `build()` method of a Flutter Widget, you must specify a `requestId` on the request. Otherwise, ferry will automatically assign a unique `requestId` on each build, causing the operation to be re-executed.
+
+Alternatively, you can move the request instantiation outside the `build()` method, as in the example above.
+
+:::
 
 ## Usage with Mutations
 
