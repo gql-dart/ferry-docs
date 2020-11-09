@@ -36,7 +36,7 @@ Rather than just replacing the previous result with the refetched result, we may
 
 To do this, we first need to update our original request to include a `requestId`. This will tell Ferry to include any results from subsequent requests with the same `requestId` in this request's result stream.
 
-```dart{3}
+```dart {3}
 final reviewsReq = GReviewsReq(
   (b) => b
     ..requestId = 'MyReviewsReq'
