@@ -8,8 +8,6 @@ Fetching new data for an `OperationRequest` in Ferry is as easy as adding an upd
 1. The updated request is identical to the original request, OR
 2. The updated request has the same (non-null) `requestId` as the original request
 
-:::
-
 ## Refetching
 
 For example, if we are listening to the following request:
@@ -38,7 +36,7 @@ Rather than just replacing the previous result with the refetched result, we may
 
 To do this, we first need to update our original request to include a `requestId`. This will tell Ferry to include any results from subsequent requests with the same `requestId` in this request's result stream.
 
-```dart
+```dart{3}
 final reviewsReq = GReviewsReq(
   (b) => b
     ..requestId = 'MyReviewsReq'
