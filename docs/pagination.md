@@ -3,20 +3,10 @@ id: pagination
 title: Pagination & Refetching
 ---
 
-Fetching new data for an `OperationRequest` in Ferry is easy. Just add a request of the same type and with the same `requestId` to the `Client.requestController`.
+Fetching new data for an `OperationRequest` in Ferry is as easy as adding an updated request to the `Client.requestController`. Ferry will automatically include the results from the updated request in the response Stream of the original request if:
 
-:::note
-
-If no `requestId` is provided, Ferry will automatically assign a `uuid` when the request is instantiated.
-
-If you're using Flutter, make sure to either instantiate the request outside of the `build()` method or explicitly provide a `requestId`. Otherwise, a new request will be instantiated on every build with a new ID.
-
-```dart
-final reviewsReq = GReviewsReq();
-
-print(reviewsReq.requestId);
-/// 60db32c0-e9d7-11ea-9678-054319a5b10b
-```
+1. The updated request is identical to the original request, OR
+2. The updated request has the same (non-null) `requestId` as the original request
 
 :::
 
@@ -34,7 +24,7 @@ final reviewsReq = GReviewsReq(
 client.request(reviewsReq).listen((response) => print(response));
 ```
 
-We can refetch the query by adding the request to the `requestController`:
+We can refetch the query by adding the same request to the `requestController`:
 
 ```dart
 client.requestController.add(reviewsReq);
@@ -46,7 +36,20 @@ Once the response is received, any `request()` Streams that were listening to `r
 
 Rather than just replacing the previous result with the refetched result, we may want to combine the results to enable pagination.
 
-To do this, we need to create a copy of our original request that will fetch the next set of results and include an `updateResult` calback that tells ferry how to combine the results.
+To do this, we first need to update our original request to include a `requestId`. This will tell Ferry to include any results from subsequent requests with the same `requestId` in this request's result stream.
+
+```dart
+final reviewsReq = GReviewsReq(
+  (b) => b
+    ..requestId = 'MyReviewsReq'
+    ..vars.first = 3
+    ..vars.offset = 0,
+);
+
+client.request(reviewsReq).listen((response) => print(response));
+```
+
+Now we can create a copy of our original request that will fetch the next set of results and include an `updateResult` calback that tells ferry how to combine the results.
 
 For example, let's fetch the next 3 reviews.
 
@@ -61,5 +64,11 @@ final nextReviewsReq = reviewsReq.rebuild(
 
 client.requestController.add(nextReviewsReq);
 ```
+
+:::note
+
+Since we are using the `rebuild()` method, our `newsReviewsReq` will copy the `requestId` we defined in `reviewsReq` above automatically. Otherwise, we'd need to specify the `requestId` manuallly.
+
+:::
 
 The next event received by our `request()` Stream will now include all six reviews.
