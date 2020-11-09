@@ -47,7 +47,7 @@ final reviewsReq = GReviewsReq(
 client.request(reviewsReq).listen((response) => print(response));
 ```
 
-Now we can create a copy of our original request that will fetch the next set of results and include an `updateResult` calback that tells ferry how to combine the results.
+Now we can create a copy of our request that will fetch the next set of results and include an `updateResult` calback that tells ferry how to combine the results.
 
 For example, let's fetch the next 3 reviews.
 
