@@ -30,7 +30,9 @@ client.requestController.add(reviewsReq);
 
 Once the response is received, any `request()` Streams that were listening to `reviewsReq` will get updated with the new data. 
 
-Note that refetching don't override `FetchPolicy` setting, so if `FetchPolicy` is set to `CacheFirst`, you'll get the same results of the first operation.
+:::note
+Since refetching doesn't override the `FetchPolicy` setting, if `FetchPolicy` is set to `CacheFirst`, you'll get the cached results of the initial operation.
+:::
 
 ## Pagination
 
