@@ -38,7 +38,7 @@ Ferry includes a `HiveStore` which enables offline data persistance, based on th
 
 ### Install Dependencies
 
-To use the `HiveStore`, you'll need to add these dependencies to your `pubspect.yaml`:
+To use the `HiveStore`, you'll need to add these dependencies to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
